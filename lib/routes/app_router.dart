@@ -1,7 +1,10 @@
 import 'package:bloc_project/data/models/get_user_model.dart';
+import 'package:bloc_project/data/models/my_order_model.dart';
 import 'package:bloc_project/presentation/add_address/add_address_screen.dart';
 import 'package:bloc_project/presentation/bottom_nav/bottom_nav_screen.dart';
 import 'package:bloc_project/presentation/cache_reel/cache_reel_screen.dart';
+import 'package:bloc_project/presentation/cancel_screen/cancelled_products.dart';
+import 'package:bloc_project/presentation/cancel_screen/cancel_product_details.dart';
 import 'package:bloc_project/presentation/cart/cart_screen.dart';
 import 'package:bloc_project/presentation/delivery_address/delivery_address_screen.dart';
 import 'package:bloc_project/presentation/edit_profile/edit_profile_screen.dart';
@@ -34,7 +37,8 @@ class AppRoutes {
   static const String myOrder = '/my_order';
   static const String addAddress = '/add_address';
   static const String cacheReel = '/cache_reel';
-  static const String cancelProductDetails = '/cancel_product_details';
+   static const String cancelProductDetails = '/cancel_product_details';
+  static const String cancelledProducts = '/cancel_products_screen';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -43,52 +47,63 @@ class AppRoutes {
 
     switch (settings.name) {
       case splash:
-      // return MaterialPageRoute(builder: (_) => const SplashScreen());
+        // return MaterialPageRoute(builder: (_) => const SplashScreen());
         return MaterialPageRoute(builder: (_) => BottomNavScreen());
 
       case login:
-       return MaterialPageRoute(builder: (_) => LoginScreen());
-       case signup:
-       return MaterialPageRoute(builder: (_) => SignUpScreen());
-       case bottomNav:
-       return MaterialPageRoute(builder: (_) => BottomNavScreen());
-       case productDetail:
-         if (args is Product) {
-           return MaterialPageRoute(
-             builder: (_) => ProductDetailScreen(product: args),
-           );
-         }else{
-           return _errorRoutes('Need to pass product detail...');
-         }
+        return MaterialPageRoute(builder: (_) => LoginScreen());
+      case signup:
+        return MaterialPageRoute(builder: (_) => SignUpScreen());
+      case bottomNav:
+        return MaterialPageRoute(builder: (_) => BottomNavScreen());
+      case productDetail:
+        if (args is Product) {
+          return MaterialPageRoute(
+            builder: (_) => ProductDetailScreen(product: args),
+          );
+        } else {
+          return _errorRoutes('Need to pass product detail...');
+        }
 
       case home:
-        // return MaterialPageRoute(
-        //   builder: (_) => HomeScreen(
-        //     username: (args as Map)['username'],
-        //   ),
-        // );
+      // return MaterialPageRoute(
+      //   builder: (_) => HomeScreen(
+      //     username: (args as Map)['username'],
+      //   ),
+      // );
 
       case editProfile:
-      if (args is UserModel) {
-        return MaterialPageRoute(
-          builder: (_)=> EditProfileScreen(userModel: args),
-        );
-      } else {
-        return _errorRoutes('Need to pass user data detail...');
-      }
+        if (args is UserModel) {
+          return MaterialPageRoute(
+            builder: (_) => EditProfileScreen(userModel: args),
+          );
+        } else {
+          return _errorRoutes('Need to pass user data detail...');
+        }
       case orderHistory:
         return MaterialPageRoute(builder: (_) => OrderHistoryScreen());
       case cacheReel:
         return MaterialPageRoute(builder: (_) => CacheReelScreen());
+
+        final MyOrder myOrder;
       case cancelProductDetails:
-        return MaterialPageRoute(builder: (_)=> CartScreen());
+        if (args is MyOrder) {
+          return MaterialPageRoute(
+            builder: (_) => CancelProductsDetails(myOrder: args),
+          );
+        } else {
+          return _errorRoutes('Need to pass MyOrder object...');
+        }
+
+      case cancelledProducts:
+        return MaterialPageRoute(builder: (_)=> CancelledProducts());
       case setting:
         return MaterialPageRoute(builder: (_) => SettingScreen());
-      case myOrder :
-        return MaterialPageRoute(builder: (_)=> OrderScreen());
+      case myOrder:
+        return MaterialPageRoute(builder: (_) => OrderScreen());
       case notifications:
         return MaterialPageRoute(builder: (_) => NotificationScreen());
-        case deliveryAddress:
+      case deliveryAddress:
         return MaterialPageRoute(builder: (_) => DeliveryAddressScreen());
       case addAddress:
         return MaterialPageRoute(builder: (_) => AddAddressScreen());
@@ -100,7 +115,8 @@ class AppRoutes {
         );
     }
   }
-  static MaterialPageRoute _errorRoutes(String errorMassage){
+
+  static MaterialPageRoute _errorRoutes(String errorMassage) {
     return MaterialPageRoute(
       builder: (_) => Scaffold(
         body: Center(child: Text('No route defined for $errorMassage')),

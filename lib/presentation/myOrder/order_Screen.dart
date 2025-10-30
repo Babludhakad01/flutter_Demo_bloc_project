@@ -3,12 +3,13 @@ import 'package:bloc_project/core/constants/string_constants.dart';
 import 'package:bloc_project/core/navigation/navigation_service.dart';
 import 'package:bloc_project/core/widgets/common_widgets.dart';
 import 'package:bloc_project/logic/my_order/my_order_bloc.dart';
-import 'package:bloc_project/logic/my_order/my_order_event.dart';
 import 'package:bloc_project/logic/my_order/my_order_state.dart';
+import 'package:bloc_project/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderScreen extends StatefulWidget {
+
   const OrderScreen({super.key});
 
   @override
@@ -21,7 +22,6 @@ class _OrderScreen extends State<OrderScreen> {
     return BlocBuilder<MyOrderBloc, MyOrderState>(
       builder: (context, state) {
         final orders = state.orderItems;
-        print;
 
         return Scaffold(
           backgroundColor: AppColors.backGroundColor,
@@ -35,7 +35,7 @@ class _OrderScreen extends State<OrderScreen> {
                   itemCount: orders.length,
                   itemBuilder: (context, index) {
                     final item = orders[index];
-                    print(item);
+                    // print(item);
 
                     return Card(
                       margin: const EdgeInsets.symmetric(
@@ -48,8 +48,6 @@ class _OrderScreen extends State<OrderScreen> {
                       color: const Color(0xFF2B3545),
 
                       child: ListTile(
-
-
                         contentPadding: EdgeInsets.all(8),
                         leading: ClipRect(
                           child: Image.asset(
@@ -90,8 +88,6 @@ class _OrderScreen extends State<OrderScreen> {
                             //   color: AppColors.lightWhite,
                             //   size: 22,
                             // ),
-
-
                             Text(
                               item.status,
                               style: TextStyle(
@@ -99,15 +95,21 @@ class _OrderScreen extends State<OrderScreen> {
                                 color: AppColors.primary,
                               ),
                             ),
-                            SizedBox(width: 4,),
-                            item.status == "Pending"
-                                ? IconButton(
+
+                            (item.reason == "" && item.status != "Cancelled")
+                                ? (IconButton(
                                     onPressed: () {
-                                      NavigationService.pushNamed("/cancel_product_details");
-                                      context.read<MyOrderBloc>().add(RemoveProductFromOrder(item.id));
+                                      NavigationService.pushNamed(
+                                        AppRoutes.cancelProductDetails,
+                                        arguments: orders[index]
+                                      );
+                                      // context.read<MyOrderBloc>().add(RemoveProductFromOrder(item.id));
                                     },
-                                    icon: Icon(Icons.cancel, color: Colors.grey,),
-                                  )
+                                    icon: Icon(
+                                      Icons.cancel,
+                                      color: Colors.grey,
+                                    ),
+                                  ))
                                 : SizedBox.shrink(),
                           ],
                         ),

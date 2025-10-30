@@ -28,6 +28,7 @@ class _PersonScreenState extends State<PersonScreen> {
     },
     {'title': StringConstants.myOrder, 'icon': Icons.shopping_bag},
     {'title': StringConstants.orderHistory, 'icon': Icons.local_shipping},
+    {'title': StringConstants.cancelProducts, 'icon': Icons.cancel},
     {'title': StringConstants.reels, 'icon': Icons.video_call_outlined},
     {'title': StringConstants.notifications, 'icon': Icons.notifications},
 

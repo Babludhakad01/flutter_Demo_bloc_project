@@ -26,6 +26,7 @@ class StringConstants {
   static const String chooseYourBike = 'Choose Your Bike';
   static const String productDetail = 'Product Detail';
   static const String description = 'Description';
+  static const String reasons = 'Feedback form';
   static const String addToCart = 'Add to Cart';
   static const String cart = 'Cart';
   static const String myShoppingCart = 'My Shopping Cart';
@@ -40,6 +41,7 @@ class StringConstants {
   static const String editProfile = 'Edit Profile';
   static const String deliveryAddress = 'Delivery Address';
   static const String myOrder = 'My Order';
+  static const String cancelProducts = 'Cancelled Products';
   static const String orderHistory = 'Order History';
   static const String reels = 'Reels(Videos)';
   static const String  settings = 'Settings';
@@ -55,6 +57,7 @@ class StringConstants {
   static const String city = 'City';
   static const String pinCode = 'PinCode';
   static const String state = 'State';
+  static const String orderedProductDetails = 'Ordered Products Details';
 
 
 

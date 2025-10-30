@@ -29,15 +29,7 @@ class CartScreen extends StatelessWidget {
       child: BlocBuilder<CartBloc, CartState>(
 
         builder: (context, state) {
-        final orderedList = state.cartItems.map((product){
-           return MyOrder(
-           id: DateTime.now().toString(), // product.id
-             title: product.title,
-             image: product.image,
-             status: "Pending",
-             date: DateTime.now(),
-           );
-         }).toList();
+
 
 
           return Scaffold(
@@ -303,9 +295,9 @@ class CartScreen extends StatelessWidget {
 
                               // navigate to myOrder Screen
                               onPressed: () {
-                                print("Ordered list ${orderedList.runtimeType}");
-                                 context.read<MyOrderBloc>().add(AddOrderProduct(orderedList));
-                                context.read<CartBloc>().add(ClearCart());
+                                // print("Ordered list ${orderedList.runtimeType}");
+                                 context.read<MyOrderBloc>().add(AddOrderProduct(state.cartItems));
+                                 context.read<CartBloc>().add(ClearCart());
 
                                NavigationService.pushNamed("/my_order");
                               },

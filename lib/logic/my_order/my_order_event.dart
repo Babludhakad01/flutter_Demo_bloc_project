@@ -1,3 +1,4 @@
+import 'package:bloc_project/data/models/get_product_model.dart';
 import 'package:bloc_project/data/models/my_order_model.dart';
 import 'package:equatable/equatable.dart';
 
@@ -7,7 +8,7 @@ abstract class MyOrderEvent extends Equatable {
 }
 
 class AddOrderProduct extends MyOrderEvent {
-  final List<MyOrder> orderProduct;
+  final List<Product> orderProduct;
 
   AddOrderProduct(this.orderProduct);
 
@@ -24,4 +25,16 @@ class RemoveProductFromOrder extends MyOrderEvent{
   @override
   // TODO: implement props
   List<Object?> get props => [productId];
+}
+
+
+class CancelProductReason extends MyOrderEvent{
+final String productId;
+final String reason;
+
+CancelProductReason({required this.productId, required this.reason});
+
+@override
+  // TODO: implement props
+  List<Object?> get props => [productId,reason];
 }
